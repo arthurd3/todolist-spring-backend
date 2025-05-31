@@ -3,12 +3,12 @@ package com.arthur.todolist.controllers;
 import com.arthur.todolist.controllers.dtos.request.UserRequestDTO;
 import com.arthur.todolist.controllers.dtos.response.UserResponseDTO;
 import com.arthur.todolist.gateways.mappers.UserMapperToModel;
-import com.arthur.todolist.usecases.UseCaseDeleteUser;
-import com.arthur.todolist.usecases.UseCaseEditUser;
-import com.arthur.todolist.usecases.UseCaseRegisterUser;
+import com.arthur.todolist.usecases.*;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +19,8 @@ public class UserController {
     private final UseCaseRegisterUser useCaseRegisterUser;
     private final UseCaseDeleteUser useCaseDeleteUser;
     private final UseCaseEditUser useCaseEditUser;
+    private final UseCaseListUsers useCaseListUsers;
+    private final UseCaseFindUser useCaseFindUser;
 
     @PostMapping("/registerUser")
     public Optional<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequest) {
@@ -33,5 +35,15 @@ public class UserController {
     @PutMapping("/editUser")
     public Optional<UserResponseDTO> editUser(@RequestBody UserRequestDTO userRequest) {
         return useCaseEditUser.editUser(userRequest);
+    }
+
+    @GetMapping("/listUsers")
+    public List<UserResponseDTO> listUsers() {
+        return useCaseListUsers.listUsers();
+    }
+
+    @GetMapping("/findUser/{id}")
+    public Optional<UserResponseDTO> findUser(@PathVariable(name = "id") Long id) {
+        return useCaseFindUser.findUser(id);
     }
 }

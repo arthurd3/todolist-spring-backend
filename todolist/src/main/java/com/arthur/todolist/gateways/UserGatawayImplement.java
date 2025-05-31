@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -56,5 +59,15 @@ public class UserGatawayImplement implements UserGateway {
     @Override
     public Optional<Users> findUserById(Long id) {
         return userRepository.findUsersById(id);
+    }
+
+    @Override
+    public List<UserResponseDTO> findAllUsers() {
+        List<UserResponseDTO> listUsers = userRepository.findAll()
+                .stream()
+                .map(users -> userMapperToResponse.userModelResponse(users).get())
+                .collect(Collectors.toList());
+
+        return listUsers;
     }
 }
