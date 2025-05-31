@@ -6,6 +6,6 @@ import com.arthur.todolist.domain.enums.UserType;
 
 public class UserMapperToModel {
     public Users userRequestModel(UserRequestDTO userRequest , UserType userType) {
-        return new Users(userRequest.userName() ,userRequest.email(), userRequest.phone(), userRequest.password() , userType);
+        return new Users(userRequest.id(), userRequest.userName() ,userRequest.email(), userRequest.phone(), userRequest.password() , userType);
     }
 }
