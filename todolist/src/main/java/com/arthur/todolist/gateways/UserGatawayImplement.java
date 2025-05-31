@@ -21,7 +21,23 @@ public class UserGatawayImplement implements UserGateway {
     }
 
     @Override
-    public Optional<Users> getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+    public Optional<UserResponseDTO> getUserByEmail(String email) {
+        return userRepository.findUsersByEmail(email);
+    }
+
+    @Override
+    public Optional<UserResponseDTO> deleteUserById(Long id) {
+        var deletedUser = findUserById(id);
+        userRepository.deleteById(id);
+        if (findUserById(id).isPresent()) {
+            return Optional.empty();
+        }
+
+        return deletedUser;
+    }
+
+    @Override
+    public Optional<UserResponseDTO> findUserById(Long id) {
+        return userRepository.findUsersById(id);
     }
 }

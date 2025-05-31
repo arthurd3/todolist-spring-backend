@@ -1,4 +1,6 @@
 package com.arthur.todolist.controllers.dtos.response;
 
-public record UserResponseDTO(Long id, String userName, String email,String phone , String userType) {
+import com.arthur.todolist.domain.enums.UserType;
+
+public record UserResponseDTO(Long id, String userName, String email, String phone , UserType userType) {
 }

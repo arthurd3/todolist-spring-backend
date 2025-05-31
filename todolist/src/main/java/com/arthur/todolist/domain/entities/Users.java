@@ -5,19 +5,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true , nullable = false)
-    private String username;
+    @Column(unique = true , nullable = false  ,name = "username")
+    private String userName;
 
     @Column(nullable = false)
     private String password;
@@ -32,10 +34,9 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-
-    public Users(String username, String password, String email, String phone , UserType userType )
+    public Users(String userName, String password, String email, String phone , UserType userType )
     {
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.email = email;
         this.phone = phone;

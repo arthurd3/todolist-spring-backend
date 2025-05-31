@@ -1,4 +1,4 @@
-package com.arthur.todolist.controllers.mappers;
+package com.arthur.todolist.gateways.mappers;
 
 import com.arthur.todolist.controllers.dtos.request.UserRequestDTO;
 import com.arthur.todolist.domain.entities.Users;

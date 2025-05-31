@@ -2,14 +2,11 @@ package com.arthur.todolist.controllers;
 
 import com.arthur.todolist.controllers.dtos.request.UserRequestDTO;
 import com.arthur.todolist.controllers.dtos.response.UserResponseDTO;
-import com.arthur.todolist.controllers.mappers.UserMapperToModel;
-import com.arthur.todolist.domain.enums.UserType;
+import com.arthur.todolist.gateways.mappers.UserMapperToModel;
+import com.arthur.todolist.usecases.UseCaseDeleteUser;
 import com.arthur.todolist.usecases.UseCaseRegisterUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -18,13 +15,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserMapperToModel userMapperToModel;
     private final UseCaseRegisterUser useCaseRegisterUser;
+    private final UseCaseDeleteUser useCaseDeleteUser;
 
     @PostMapping("/registerUser")
     public Optional<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequest) {
-        UserType userType = UserType.CLIENT;
-        var user = userMapperToModel.userRequestModel(userRequest , userType);
-        return useCaseRegisterUser.registerUser(user);
+        return useCaseRegisterUser.registerUser(userRequest);
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public Optional<UserResponseDTO> createUser(@PathVariable(name = "id") Long id) {
+        return useCaseDeleteUser.deleteUser(id);
     }
 }
