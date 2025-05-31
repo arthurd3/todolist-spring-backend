@@ -3,6 +3,7 @@ package com.arthur.todolist.gateways;
 import com.arthur.todolist.controllers.dtos.request.UserRequestDTO;
 import com.arthur.todolist.controllers.dtos.response.UserResponseDTO;
 import com.arthur.todolist.domain.entities.Users;
+import com.arthur.todolist.domain.enums.UserType;
 import com.arthur.todolist.gateways.mappers.UserMapperToModel;
 import com.arthur.todolist.gateways.mappers.UserMapperToResponse;
 import com.arthur.todolist.repositorys.IUserRepository;
@@ -22,14 +23,20 @@ public class UserGatawayImplement implements UserGateway {
     private final UserMapperToResponse userMapperToResponse;
     private final UserMapperToModel userMapperToModel;
     @Override
-    public Optional<UserResponseDTO> registerUser(Users user) {
-        return userMapperToResponse.userModelResponse(userRepository.save(user));
+    public Optional<UserResponseDTO> registerUser(UserRequestDTO user) {
+
+        UserType userType = UserType.CLIENT;
+        var userSave = userMapperToModel.userRequestModel(user , userType);
+        userRepository.save(userSave);
+
+        return userMapperToResponse.userModelResponse(userSave);
     }
 
     @Override
     public Optional<UserResponseDTO> editUser(UserRequestDTO userRequestDTO) {
+
         var editUser = userMapperToModel.userRequestModel(userRequestDTO , userRequestDTO.userType());
-        var realUser = findUserById(userRequestDTO.id()).get();
+        var realUser = userRepository.findById(userRequestDTO.id()).get();
 
         BeanUtils.copyProperties(editUser, realUser);
 
@@ -39,7 +46,7 @@ public class UserGatawayImplement implements UserGateway {
     }
 
     @Override
-    public Optional<Users> getUserByEmail(String email) {
+    public Optional<UserResponseDTO> findUserByEmail(String email) {
         return userRepository.findUsersByEmail(email);
     }
 
@@ -53,11 +60,11 @@ public class UserGatawayImplement implements UserGateway {
             return Optional.empty();
         }
 
-        return userMapperToResponse.userModelResponse(deletedUser.get());
+        return deletedUser;
     }
 
     @Override
-    public Optional<Users> findUserById(Long id) {
+    public Optional<UserResponseDTO> findUserById(Long id) {
         return userRepository.findUsersById(id);
     }
 
