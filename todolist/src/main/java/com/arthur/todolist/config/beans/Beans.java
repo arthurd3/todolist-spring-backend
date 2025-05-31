@@ -2,7 +2,7 @@ package com.arthur.todolist.config.beans;
 
 import com.arthur.todolist.controllers.mappers.UserMapperToModel;
 
-import com.arthur.todolist.usecases.mappers.UserMapperToResponse;
+import com.arthur.todolist.gateways.mappers.UserMapperToResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
