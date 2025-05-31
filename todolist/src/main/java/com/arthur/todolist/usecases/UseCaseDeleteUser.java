@@ -15,12 +15,7 @@ public class UseCaseDeleteUser {
     private final UserGateway userGateway;
     @Transactional
     public Optional<UserResponseDTO> deleteUser(Long id) {
-
-        if(userGateway.findUserById(id).isPresent())
-            return userGateway.deleteUserById(id);
-
-        return Optional.empty();
-
+        return userGateway.deleteUserById(id);
     }
 
 }

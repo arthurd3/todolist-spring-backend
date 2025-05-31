@@ -27,8 +27,10 @@ public class UserGatawayImplement implements UserGateway {
 
     @Override
     public Optional<UserResponseDTO> deleteUserById(Long id) {
+
         var deletedUser = findUserById(id);
         userRepository.deleteById(id);
+
         if (findUserById(id).isPresent()) {
             return Optional.empty();
         }
