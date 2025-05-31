@@ -1,4 +1,4 @@
-package com.arthur.todolist.domain.entities;
+package com.arthur.todolist.domain.enums;
 
 public enum UserType {
     ADMIN,

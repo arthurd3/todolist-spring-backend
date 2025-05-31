@@ -1,11 +1,10 @@
 package com.arthur.todolist.usecases.mappers;
 
-import com.arthur.todolist.controllers.dtos.request.UserRequestDTO;
-import com.arthur.todolist.domain.User;
-import com.arthur.todolist.domain.entities.UserType;
+import com.arthur.todolist.controllers.dtos.response.UserResponseDTO;
+import com.arthur.todolist.domain.entities.Users;
 
 public class UserMapperToResponse {
-    public User userModelResponse(UserRequestDTO userRequest , UserType userType) {
-        return new User(userRequest.userName() ,userRequest.email(), userRequest.phone(), userRequest.password() , userType);
+    public UserResponseDTO userModelResponse(Users users) {
+        return new UserResponseDTO(users.getId() , users.getUsername() , users.getEmail(), users.getPhone(), users.getUserType().toString());
     }
 }

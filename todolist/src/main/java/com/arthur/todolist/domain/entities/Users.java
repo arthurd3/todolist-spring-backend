@@ -1,7 +1,6 @@
-package com.arthur.todolist.domain;
+package com.arthur.todolist.domain.entities;
 
-
-import com.arthur.todolist.domain.entities.UserType;
+import com.arthur.todolist.domain.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +33,7 @@ public class User {
     private UserType userType;
 
 
-    public User (String username, String password, String email, String phone , UserType userType )
+    public Users(String username, String password, String email, String phone , UserType userType )
     {
         this.username = username;
         this.password = password;
